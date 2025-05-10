@@ -248,7 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.overlay.querySelector('#modal-prev').textContent = ''; // limpa preview
 
     const sel = modal.overlay.querySelector('#modal-cat');
-    sel.innerHTML = Object.keys(storage.categories).map(c=>`<option>${c}</option>`).join('');
+    sel.innerHTML = Object.keys(storage.categories)
+      .sort((a,b)=>a.localeCompare(b,'pt-BR'))
+      .map(c=>`<option>${c}</option>`).join('');
     sel.value = exp.categoria;
 
     modal.overlay.querySelector('#modal-val').value = exp.valorTotal;
@@ -278,7 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <h4>Nova despesa</h4>
       <label>Categoria:
         <select id="modal-cat">
-          ${Object.keys(storage.categories).map(c => `<option>${c}</option>`).join('')}
+          ${Object.keys(storage.categories).sort((a,b)=>a.localeCompare(b,'pt-BR'))
+              .map(c => `<option>${c}</option>`).join('')}
         </select>
       </label>
       <label style="display:block; margin-top:8px">
@@ -352,7 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
   function openAddModal(payer) {
     modal.currentPayer = payer;
     const sel = modal.overlay.querySelector('#modal-cat');
-    sel.innerHTML = Object.keys(storage.categories).map(c=>`<option>${c}</option>`).join('');
+    sel.innerHTML = Object.keys(storage.categories)
+      .sort((a,b)=>a.localeCompare(b,'pt-BR'))
+      .map(c=>`<option>${c}</option>`).join('');
     // garante que campo parcelas esteja habilitado para nova inclusão
     const parcInput = modal.overlay.querySelector('#modal-parc');
     parcInput.disabled = false;

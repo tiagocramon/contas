@@ -35,12 +35,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const novo = renameInput.value.trim();
       if (!novo) return;
       if (novo !== renameTarget && categories[novo]) {
-        alert('Já existe categoria com esse nome.');
+        alert('Já existe uma categoria com esse nome.');
         return;
       }
+
+      /* 1. renomeia no objeto categories */
       categories[novo] = categories[renameTarget];
       delete categories[renameTarget];
       savePairCategories(pairA, pairB, categories);
+
+      /* 2. renomeia em TODAS as despesas do par atual */
+      const despesasPrefix = `${STORAGE_KEYS.EXPENSES}`;        // "despesas_"
+      const pairPattern = new RegExp(`${despesasPrefix}\\d{4}-\\d{2}_${pairA}_${pairB}`);
+      Object.keys(localStorage).forEach(key => {
+        if (!pairPattern.test(key)) return;                      // só chaves deste par
+        const arr = JSON.parse(localStorage.getItem(key) || '[]');
+        let changed = false;
+        arr.forEach(reg => {
+          if (reg.categoria === renameTarget) {
+            reg.categoria = novo;
+            changed = true;
+          }
+        });
+        if (changed) localStorage.setItem(key, JSON.stringify(arr));
+      });
+
+      /* fecha modal e refaz lista */
       renameModal.style.display = 'none';
       renderCategories();
     };
