@@ -1,0 +1,56 @@
+<!-- admin.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partilha - Admin</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="admin.html">Admin</a>
+  </nav>
+  <main id="admin-app">
+    <section>
+      <h2>Perfis</h2>
+      <div id="profiles-list"></div>
+      <input id="new-profile-name" placeholder="Nome do perfil">
+      <button id="add-profile-btn">Adicionar Perfil</button>
+    </section>
+    <!-- Seletor de par de perfis -->
+    <div id="pair-container" style="display:none; margin: 16px 0;">
+      Configurar categorias para:
+      <select id="pair-a"></select> × <select id="pair-b"></select>
+    </div>
+
+    <section>
+      <h2>Categorias</h2>
+      <div id="categories-list"></div>
+      <input id="new-category-name" placeholder="Nome da categoria">
+      <button id="add-category-btn">Adicionar Categoria</button>
+    </section>
+
+    <section id="category-settings" style="display:none">
+      <h3 id="category-title">Configurar %</h3>
+      <div id="percent-inputs"></div>
+      <button id="save-category-btn">Salvar %</button>
+    </section>
+
+<!-- Modal para renomear categoria -->
+<div id="rename-modal" class="modal">          <!-- era modal-overlay -->
+    <div class="modal-content">                  <!-- era modal -->
+      <h3>Renomear Categoria</h3>
+      <input id="rename-input" type="text" placeholder="Novo nome da categoria" />
+      <div class="modal-actions">
+        <button id="rename-cancel">Cancelar</button>
+        <button id="rename-confirm">Confirmar</button>
+      </div>
+    </div>
+  </div>
+  </main>
+  <script src="js/storage.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
